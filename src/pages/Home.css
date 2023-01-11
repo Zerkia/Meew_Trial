@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.buttonSpace{
+    padding: 3px;
+}
+
+.top43{
+    top: 43%;
+}

@@ -8,7 +8,7 @@ const container = document.getElementById('root');
 const root = createRoot(container!);
 root.render(
   <React.StrictMode>
-    <App />
+    <App /> {/* Component, acts as a part from elsewhere you can "slot in" to make work in other code, similar to PhP */}
   </React.StrictMode>
 );
 

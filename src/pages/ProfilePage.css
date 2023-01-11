@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.iconSize{
+    font-size: 26px;
+}
+
+.textSize{
+    font-size: 24px;
+}
+
+.center{
+    text-align: center;
+    align-content: center;
+    align-items: center;
+}
