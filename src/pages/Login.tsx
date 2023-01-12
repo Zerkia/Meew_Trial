@@ -1,8 +1,17 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonItem, IonLabel, IonInput, IonRow, IonCol } from '@ionic/react';
-import { Link } from 'react-router-dom';
+import { FormEvent } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import './Login.css';
 
 const Login: React.FC = () => {
+
+  const history = useHistory()
+
+  const handleSubmit = (e:FormEvent) => {
+    e.preventDefault()
+    history.push('/profilepage')
+  }
+
   return (
     <IonPage>
       <IonHeader>
@@ -16,7 +25,7 @@ const Login: React.FC = () => {
             <IonTitle size="large">Login</IonTitle>
           </IonToolbar>
         </IonHeader>
-          <form>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <IonItem lines="full">
               <IonLabel position="floating">Email</IonLabel>
               <IonInput type="email" required></IonInput>
@@ -27,11 +36,9 @@ const Login: React.FC = () => {
             </IonItem>
             <IonRow>
               <IonCol>
-                <Link to="profilepage">
-                  <IonButton type="button" color="danger" expand="block">Login</IonButton>
-                </Link>
+                <IonButton type="submit" color="danger" expand="block">Login</IonButton>
                 <Link to="/forgotpassword">
-                  <center><a className='text-sm'>Forgot Password?</a></center>
+                  <center><p className='text-sm'>Forgot Password?</p></center>
                 </Link>
               </IonCol>
             </IonRow>
