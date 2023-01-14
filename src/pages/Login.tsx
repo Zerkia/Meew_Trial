@@ -1,14 +1,25 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton, IonItem, IonLabel, IonInput, IonRow, IonCol } from '@ionic/react';
 import { FormEvent } from 'react';
+import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { createClient } from '@supabase/supabase-js';
+import supabase from '../supabaseClient';
 import './Login.css';
 
 const Login: React.FC = () => {
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const history = useHistory()
 
-  const handleSubmit = (e:FormEvent) => {
+  const handleSubmit = async (e:FormEvent) => {
     e.preventDefault()
+    const {data, error} = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+    console.log(data)
+    console.log(error)
     history.push('/profilepage')
   }
 
@@ -28,11 +39,11 @@ const Login: React.FC = () => {
           <form onSubmit={(e) => handleSubmit(e)}>
             <IonItem lines="full">
               <IonLabel position="floating">Email</IonLabel>
-              <IonInput type="email" required></IonInput>
+              <IonInput type="email" onChange={(e) => setEmail((e.target as HTMLInputElement).value)} required></IonInput>
             </IonItem>
             <IonItem lines="full">
               <IonLabel position="floating">Password</IonLabel>
-              <IonInput type="password" required></IonInput>
+              <IonInput type="password" onChange={(e) => setPassword((e.target as HTMLInputElement).value)} required></IonInput>
             </IonItem>
             <IonRow>
               <IonCol>

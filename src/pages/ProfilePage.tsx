@@ -1,7 +1,7 @@
-import { IonButton, IonCol, IonContent, IonHeader, IonIcon, IonPage, IonRow, IonTitle, IonToolbar,  IonItem, IonLabel, IonInput, } from '@ionic/react';
+import { IonButton, IonCol, IonContent, IonHeader, IonIcon, IonPage, IonRow, IonTitle, IonToolbar,  IonItem, IonInput, } from '@ionic/react';
 import { personOutline, mail, call, calendar } from 'ionicons/icons';
 import { useState } from 'react';
-import { supabase } from '../supabaseClient';
+import supabase from '../supabaseClient';
 import './ProfilePage.css';
 
 const ProfilePage: React.FC = () => {
@@ -40,25 +40,25 @@ const ProfilePage: React.FC = () => {
                 <div className="grid grid-cols-1 divide-y">
                     <div className='flex flex-row pl-8 p-4 items-center'>
                         <IonIcon icon={ personOutline } className='iconSize' />
-                        <IonItem lines="none">
+                        <IonItem lines={editingMode ? "full" : "none"}>
                           <IonInput type='text' readonly={editingMode ? false : true} value="Nikolaj Engstrøm Pregaard" style={{width: "300px"}}></IonInput>
                         </IonItem>
                     </div>
                     <div className='flex flex-row pl-8 p-4 items-center'>
                         <IonIcon icon={ mail } className='iconSize' />
-                        <IonItem lines="none">
+                        <IonItem lines={editingMode ? "full" : "none"}>
                           <IonInput type='text' readonly={editingMode ? false : true} value="Nikolajpregaard@gmail.com" style={{width: "300px", color: "black"}}></IonInput>
                         </IonItem>
                     </div>
                     <div className='flex flex-row pl-8 p-4 items-center'>
                         <IonIcon icon={ call } className='iconSize' />
-                        <IonItem lines="none">
+                        <IonItem lines={editingMode ? "full" : "none"}>
                           <IonInput type='text' readonly={editingMode ? false : true} value="+45 22 74 44 60" style={{width: "300px"}}></IonInput>
                         </IonItem>
                     </div>
                     <div className='flex flex-row pl-8 p-4 items-center'>
                         <IonIcon icon={ calendar } className='iconSize' />
-                        <IonItem lines="none">
+                        <IonItem lines={editingMode ? "full" : "none"}>
                           <IonInput type='text' readonly={editingMode ? false : true} value="09 / 07 / 1997" style={{width: "300px"}}></IonInput>
                         </IonItem>
                     </div>
