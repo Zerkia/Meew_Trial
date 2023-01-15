@@ -10,6 +10,7 @@ const Login: React.FC = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [lmsg, setLmsg] = useState('')
   const history = useHistory()
 
   const handleSubmit = async (e:FormEvent) => {
@@ -18,9 +19,14 @@ const Login: React.FC = () => {
       email,
       password,
     })
-    console.log(data)
-    console.log(error)
-    history.push('/profilepage')
+    if (error){
+      console.log(error)
+      setLmsg('Error in username or Password')
+    } else {
+      console.log(data)
+      setLmsg('')
+      history.push('/profilepage')
+    }
   }
 
   return (
@@ -39,14 +45,15 @@ const Login: React.FC = () => {
           <form onSubmit={(e) => handleSubmit(e)}>
             <IonItem lines="full">
               <IonLabel position="floating">Email</IonLabel>
-              <IonInput type="email" onChange={(e) => setEmail((e.target as HTMLInputElement).value)} required></IonInput>
+              <IonInput type="email" onIonInput={(e:any) => setEmail(e.target.value)} required></IonInput>
             </IonItem>
             <IonItem lines="full">
               <IonLabel position="floating">Password</IonLabel>
-              <IonInput type="password" onChange={(e) => setPassword((e.target as HTMLInputElement).value)} required></IonInput>
+              <IonInput type="password" onIonInput={(e:any) => setPassword(e.target.value)} required></IonInput>
             </IonItem>
             <IonRow>
               <IonCol>
+                <center><p>{lmsg}</p></center>
                 <IonButton type="submit" color="danger" expand="block">Login</IonButton>
                 <Link to="/forgotpassword">
                   <center><p className='text-sm'>Forgot Password?</p></center>
@@ -54,6 +61,7 @@ const Login: React.FC = () => {
               </IonCol>
             </IonRow>
           </form>
+          
       </IonContent>
     </IonPage>
   );

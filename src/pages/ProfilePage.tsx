@@ -1,17 +1,37 @@
 import { IonButton, IonCol, IonContent, IonHeader, IonIcon, IonPage, IonRow, IonTitle, IonToolbar,  IonItem, IonInput, } from '@ionic/react';
 import { personOutline, mail, call, calendar } from 'ionicons/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import supabase from '../supabaseClient';
 import './ProfilePage.css';
 
 const ProfilePage: React.FC = () => {
 
   const [editingMode, setEditingMode] = useState(false)
+  const [userData, setUserData] = useState<null | object>()
+  const [fetchError, setFetchError] = useState<null | String>()
 
-  async function getUsers() {
-    const users = await supabase.from('users').select()
-    console.log(users)
-  }
+  useEffect(() => {
+    async function getUserInfo() {
+      const {data, error} = await supabase
+      .from('users')
+      .select('email, fullname, phonenumber, birthday')
+
+      const { data: { user } } = await supabase.auth.getUser()
+
+      if (error) {
+        setFetchError('Error fetching userData')
+        setUserData(null)
+        console.log(error)
+      }
+      if (data) {
+        setUserData(user)
+        console.log(user)
+        setFetchError(null)
+      }
+    }
+    getUserInfo()
+
+  }, [])
 
   return (
     <IonPage>
@@ -41,7 +61,7 @@ const ProfilePage: React.FC = () => {
                     <div className='flex flex-row pl-8 p-4 items-center'>
                         <IonIcon icon={ personOutline } className='iconSize' />
                         <IonItem lines={editingMode ? "full" : "none"}>
-                          <IonInput type='text' readonly={editingMode ? false : true} value="Nikolaj Engstrøm Pregaard" style={{width: "300px"}}></IonInput>
+                          <IonInput type='text' readonly={editingMode ? false : true} value={String(userData)} style={{width: "300px"}}></IonInput>
                         </IonItem>
                     </div>
                     <div className='flex flex-row pl-8 p-4 items-center'>
