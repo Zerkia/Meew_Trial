@@ -12,11 +12,12 @@ const ProfilePage: React.FC = () => {
 
   useEffect(() => {
     async function getUserInfo() {
+      const { data: { user } } = await supabase.auth.getUser()
       const {data, error} = await supabase
       .from('users')
       .select('email, fullname, phonenumber, birthday')
 
-      const { data: { user } } = await supabase.auth.getUser()
+      
 
       if (error) {
         setFetchError('Error fetching userData')
@@ -61,7 +62,7 @@ const ProfilePage: React.FC = () => {
                     <div className='flex flex-row pl-8 p-4 items-center'>
                         <IonIcon icon={ personOutline } className='iconSize' />
                         <IonItem lines={editingMode ? "full" : "none"}>
-                          <IonInput type='text' readonly={editingMode ? false : true} value={String(userData)} style={{width: "300px"}}></IonInput>
+                          <IonInput type='text' readonly={editingMode ? false : true} value="Nikolaj Pregaard" style={{width: "300px"}}></IonInput>
                         </IonItem>
                     </div>
                     <div className='flex flex-row pl-8 p-4 items-center'>

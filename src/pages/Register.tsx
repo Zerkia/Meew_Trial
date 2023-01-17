@@ -35,7 +35,7 @@ const Register: React.FC = () => {
     })
     console.log(data, error)
     console.log("birthday: " + birthday)
-    /* history.push('/login') */
+    history.push('/login')
   }
 
   return (
@@ -54,7 +54,7 @@ const Register: React.FC = () => {
         <form onSubmit={(e) => handleSubmit(e)}>
           <IonItem lines="full">
             <IonLabel position="floating">Email</IonLabel>
-            <IonInput type="email" onIonInput={(e:any) => setEmail((e.target as HTMLInputElement).value)} value={email} required></IonInput>
+            <IonInput type="email" onIonInput={(e:any) => setEmail((e.target as HTMLInputElement).value)} required></IonInput>
           </IonItem>
           <IonItem lines="full">
             <IonLabel position="floating">Password</IonLabel>
